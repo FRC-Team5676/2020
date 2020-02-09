@@ -228,11 +228,15 @@ public class Robot extends TimedRobot {
 
     /* Raise & Lower Ball Area - Button 6 (Right Button) */
 
-    /* Button 7 (?) */
+    /* Button 7 (Back Button) */
 
-    /* Button 8 (?) */
+    /* Button 8 (Start Button) */
 
-    /* Drive Robot - Axis 0 & 1 (X & Y Left Stick) */
+    /* Button 9 (Left Joystick Press Down) */
+
+    /* Button 10 (Right Joystick Press Down) */
+
+    /* Drive Robot - Axis 0 & 1 (X & Y Left Joystick) */
     double turn_0 = +1 * controller_0.getRawAxis(0); /* positive is right */
     double turn_1 = +1 * controller_1.getRawAxis(0); /* positive is right */
     double forward_0 = +1 * controller_0.getRawAxis(1); /* positive is forwardard */
@@ -244,7 +248,7 @@ public class Robot extends TimedRobot {
     double trolley_up_down_left_1 = +1 * controller_1.getRawAxis(2);
     double trolley_up_down_right_1 = +1 * controller_1.getRawAxis(3);
 
-    /* Reverse Drive Robot - Axis 4 & 5 (X & Y Right Stick) */
+    /* Reverse Drive Robot - Axis 4 & 5 (X & Y Right Joystick) */
     double turn_0_reverse_drive = -1 * controller_0.getRawAxis(4); /* positive is right */
     double turn_1_reverse_drive = -1 * controller_1.getRawAxis(4); /* positive is right */
     double forward_0_reverse_drive = -1 * controller_0.getRawAxis(5); /* positive is forwardard */
