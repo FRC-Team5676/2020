@@ -71,8 +71,8 @@ public class Robot extends TimedRobot {
   private static Spark bottom_motor = new Spark(1);
 
   /* Trolley Motors */
-  private static WPI_VictorSPX follow_trolley_motor = new WPI_VictorSPX(7);
-  private static WPI_TalonSRX main_trolley_motor = new WPI_TalonSRX(8);
+  //private static WPI_VictorSPX follow_trolley_motor = new WPI_VictorSPX(7);
+  private static WPI_TalonSRX main_trolley_motor = new WPI_TalonSRX(7);
 
   /* Joysticks */
   private static Joystick controller_0 = new Joystick(0);
@@ -94,13 +94,13 @@ public class Robot extends TimedRobot {
     right_back_drive.configFactoryDefault();
     left_front_drive.configFactoryDefault();
     left_back_drive.configFactoryDefault();
-    follow_trolley_motor.configFactoryDefault();
+    //follow_trolley_motor.configFactoryDefault();
     main_trolley_motor.configFactoryDefault();
 
     /* set up followers */
     right_back_drive.follow(right_front_drive);
     left_back_drive.follow(left_front_drive);
-    follow_trolley_motor.follow(main_trolley_motor);
+    //follow_trolley_motor.follow(main_trolley_motor);
 
     /* flip values so robot moves forwardard when stick-forwardard/LEDs-green */
     right_front_drive.setInverted(true); // !< Update this
@@ -263,10 +263,10 @@ public class Robot extends TimedRobot {
     /* Button 10 (Right Joystick Press Down) */
 
     /* Drive Robot - Axis 0 & 1 (X & Y Left Joystick) */
-    double turn_0 = +1 * controller_0.getRawAxis(0); /* positive is right */
-    double turn_1 = +1 * controller_1.getRawAxis(0); /* positive is right */
-    double forward_0 = +1 * controller_0.getRawAxis(1); /* positive is forwardard */
-    double forward_1 = +1 * controller_1.getRawAxis(1); /* positive is forwardard */
+    double turn_0 = -1 * controller_0.getRawAxis(0); /* negative is right */
+    double turn_1 = -1 * controller_1.getRawAxis(0); /* negative is right */
+    double forward_0 = -1 * controller_0.getRawAxis(1); /* negative is forwardard */
+    double forward_1 = -1 * controller_1.getRawAxis(1); /* negative is forwardard */
 
     /* Trolley Up & Down - Axis 2 & 3 (Left & Right Trigger) */
     double trolley_up_down_left_0 = +1 * controller_0.getRawAxis(2);
@@ -275,10 +275,10 @@ public class Robot extends TimedRobot {
     double trolley_up_down_right_1 = +1 * controller_1.getRawAxis(3);
 
     /* Reverse Drive Robot - Axis 4 & 5 (X & Y Right Joystick) */
-    double turn_0_reverse_drive = -1 * controller_0.getRawAxis(4); /* positive is right */
-    double turn_1_reverse_drive = -1 * controller_1.getRawAxis(4); /* positive is right */
-    double forward_0_reverse_drive = -1 * controller_0.getRawAxis(5); /* positive is forwardard */
-    double forward_1_reverse_drive = -1 * controller_1.getRawAxis(5); /* positive is forwardard */
+    double turn_0_reverse_drive = 1 * controller_0.getRawAxis(4); /* positive is right */
+    double turn_1_reverse_drive = 1 * controller_1.getRawAxis(4); /* positive is right */
+    double forward_0_reverse_drive = 1 * controller_0.getRawAxis(5); /* positive is forwardard */
+    double forward_1_reverse_drive = 1 * controller_1.getRawAxis(5); /* positive is forwardard */
 
     /* Controller Deadband 10% */
     if (Math.abs(forward_0) < 0.10) {
