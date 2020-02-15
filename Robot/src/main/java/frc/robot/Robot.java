@@ -37,42 +37,42 @@ public class Robot extends TimedRobot {
   /* Default Robot */
   private final String kDefaultAuto = "Default";
   private final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private SendableChooser<String> m_chooser = new SendableChooser<>();
+  private static String m_autoSelected;
+  private static SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /* Solenoid */
-  private DoubleSolenoid intake_arm = new DoubleSolenoid(2, 0, 1);
-  private DoubleSolenoid.Value intake_arm_value = DoubleSolenoid.Value.kReverse;
-  private long intake_arm_time;
+  private static DoubleSolenoid intake_arm = new DoubleSolenoid(2, 0, 1);
+  private static DoubleSolenoid.Value intake_arm_value = DoubleSolenoid.Value.kReverse;
+  private static long intake_arm_time;
 
-  private DoubleSolenoid trolley_lift = new DoubleSolenoid(2, 2, 3);
-  private DoubleSolenoid.Value trolley_lift_value = DoubleSolenoid.Value.kReverse;
-  private long trolley_lift_time;
+  private static DoubleSolenoid trolley_lift = new DoubleSolenoid(2, 2, 3);
+  private static DoubleSolenoid.Value trolley_lift_value = DoubleSolenoid.Value.kReverse;
+  private static long trolley_lift_time;
 
-  private DoubleSolenoid ball_ramp = new DoubleSolenoid(2, 4, 5);
-  private DoubleSolenoid.Value ball_ramp_value = DoubleSolenoid.Value.kReverse;
-  private long ball_ramp_time;
+  private static DoubleSolenoid ball_ramp = new DoubleSolenoid(2, 4, 5);
+  private static DoubleSolenoid.Value ball_ramp_value = DoubleSolenoid.Value.kReverse;
+  private static long ball_ramp_time;
 
   /* Drive Train Motors */
-  private WPI_VictorSPX left_back_drive = new WPI_VictorSPX(3);
-  private WPI_TalonSRX left_front_drive = new WPI_TalonSRX(4);
-  private WPI_VictorSPX right_back_drive = new WPI_VictorSPX(5);
-  private WPI_TalonSRX right_front_drive = new WPI_TalonSRX(6);
-  private DifferentialDrive robot = new DifferentialDrive(left_front_drive, right_front_drive);
-  private Faults left_faults = new Faults();
-  private Faults right_faults = new Faults();
+  private static WPI_VictorSPX left_back_drive = new WPI_VictorSPX(3);
+  private static WPI_TalonSRX left_front_drive = new WPI_TalonSRX(4);
+  private static WPI_VictorSPX right_back_drive = new WPI_VictorSPX(5);
+  private static WPI_TalonSRX right_front_drive = new WPI_TalonSRX(6);
+  private static DifferentialDrive robot = new DifferentialDrive(left_front_drive, right_front_drive);
+  private static Faults left_faults = new Faults();
+  private static Faults right_faults = new Faults();
 
   /* Intake / Shooting Motors */
-  private Spark top_motor = new Spark(0);
-  private Spark bottom_motor = new Spark(1);
+  private static Spark top_motor = new Spark(0);
+  private static Spark bottom_motor = new Spark(1);
 
   /* Trolley Motors */
-  private WPI_VictorSPX follow_trolley_motor = new WPI_VictorSPX(7);
-  private WPI_TalonSRX main_trolley_motor = new WPI_TalonSRX(8);
+  private static WPI_VictorSPX follow_trolley_motor = new WPI_VictorSPX(7);
+  private static WPI_TalonSRX main_trolley_motor = new WPI_TalonSRX(8);
 
   /* Joysticks */
-  private Joystick controller_0 = new Joystick(0);
-  private Joystick controller_1 = new Joystick(1);
+  private static Joystick controller_0 = new Joystick(0);
+  private static Joystick controller_1 = new Joystick(1);
 
   /**
    * This function is run when the robot is first started up and should be used
