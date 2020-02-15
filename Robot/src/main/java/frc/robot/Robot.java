@@ -19,7 +19,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -41,6 +40,10 @@ public class Robot extends TimedRobot {
   private static SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /* Solenoid */
+  private static DoubleSolenoid color_wheel = new DoubleSolenoid(1, 0, 1);
+  private static DoubleSolenoid.Value color_wheel_value = DoubleSolenoid.Value.kReverse;
+  private static long color_wheel_time;
+
   private static DoubleSolenoid ball_ramp = new DoubleSolenoid(2, 0, 1);
   private static DoubleSolenoid.Value ball_ramp_value = DoubleSolenoid.Value.kReverse;
   private static long ball_ramp_time;
