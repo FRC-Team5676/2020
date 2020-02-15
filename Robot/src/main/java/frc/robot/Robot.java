@@ -303,7 +303,6 @@ public class Robot extends TimedRobot {
     if (Math.abs(trolley_drive_1) < 0.10) {
       trolley_drive_1 = 0;
     }
-    }
     if (Math.abs(trolley_up_down_right_1) < 0.10) {
       trolley_up_down_right_1 = 0;
     }
@@ -334,10 +333,10 @@ public class Robot extends TimedRobot {
       robot.arcadeDrive(forward_1, turn_1);
     }
     if (trolley_drive_0 != 0) {
-      main_trolley_motor(trolley_drive_0);
+      main_trolley_motor.set(trolley_drive_0);
     }
     if (trolley_drive_1 != 0) {
-      main_trolley_motor(trolley_drive_1);
+      main_trolley_motor.set(trolley_drive_1);
     }
   }
 
