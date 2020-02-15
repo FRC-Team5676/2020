@@ -332,11 +332,16 @@ public class Robot extends TimedRobot {
     if (forward_1 != 0 || turn_1 != 0) {
       robot.arcadeDrive(forward_1, turn_1);
     }
+
+    /* Drive Trolley */
     if (trolley_drive_0 != 0) {
       main_trolley_motor.set(trolley_drive_0);
-    }
+    } 
     if (trolley_drive_1 != 0) {
       main_trolley_motor.set(trolley_drive_1);
+    } 
+    if (trolley_drive_0 == 0 && trolley_drive_1 == 0) {
+      main_trolley_motor.set(0);
     }
   }
 
