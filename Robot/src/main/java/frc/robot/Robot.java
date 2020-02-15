@@ -41,7 +41,11 @@ public class Robot extends TimedRobot {
   private static SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /* Solenoid */
-  private static DoubleSolenoid intake_arm = new DoubleSolenoid(2, 0, 1);
+  private static DoubleSolenoid ball_ramp = new DoubleSolenoid(2, 0, 1);
+  private static DoubleSolenoid.Value ball_ramp_value = DoubleSolenoid.Value.kReverse;
+  private static long ball_ramp_time;
+
+  private static DoubleSolenoid intake_arm = new DoubleSolenoid(2, 4, 5);
   private static DoubleSolenoid.Value intake_arm_value = DoubleSolenoid.Value.kReverse;
   private static long intake_arm_time;
 
@@ -49,9 +53,9 @@ public class Robot extends TimedRobot {
   private static DoubleSolenoid.Value trolley_lift_value = DoubleSolenoid.Value.kReverse;
   private static long trolley_lift_time;
 
-  private static DoubleSolenoid ball_ramp = new DoubleSolenoid(2, 4, 5);
-  private static DoubleSolenoid.Value ball_ramp_value = DoubleSolenoid.Value.kReverse;
-  private static long ball_ramp_time;
+  private static DoubleSolenoid robot_lift = new DoubleSolenoid(2, 6, 7);
+  private static DoubleSolenoid.Value robot_lift_value = DoubleSolenoid.Value.kReverse;
+  private static long robot_lift_time;
 
   /* Drive Train Motors */
   private static WPI_VictorSPX left_back_drive = new WPI_VictorSPX(3);
