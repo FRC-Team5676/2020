@@ -48,13 +48,13 @@ public class Robot extends TimedRobot {
   private static DoubleSolenoid.Value ball_ramp_value = DoubleSolenoid.Value.kReverse;
   private static long ball_ramp_time;
 
-  private static DoubleSolenoid intake_arm = new DoubleSolenoid(2, 4, 5);
-  private static DoubleSolenoid.Value intake_arm_value = DoubleSolenoid.Value.kReverse;
-  private static long intake_arm_time;
-
   private static DoubleSolenoid trolley_lift = new DoubleSolenoid(2, 2, 3);
   private static DoubleSolenoid.Value trolley_lift_value = DoubleSolenoid.Value.kReverse;
   private static long trolley_lift_time;
+
+  private static DoubleSolenoid intake_arm = new DoubleSolenoid(2, 4, 5);
+  private static DoubleSolenoid.Value intake_arm_value = DoubleSolenoid.Value.kReverse;
+  private static long intake_arm_time;
 
   private static DoubleSolenoid robot_lift = new DoubleSolenoid(2, 6, 7);
   private static DoubleSolenoid.Value robot_lift_value = DoubleSolenoid.Value.kReverse;
@@ -74,7 +74,6 @@ public class Robot extends TimedRobot {
   private static Spark bottom_motor = new Spark(1);
 
   /* Trolley Motors */
-  //private static WPI_VictorSPX follow_trolley_motor = new WPI_VictorSPX(7);
   private static WPI_TalonSRX main_trolley_motor = new WPI_TalonSRX(7);
 
   /* Joysticks */
@@ -97,13 +96,11 @@ public class Robot extends TimedRobot {
     right_back_drive.configFactoryDefault();
     left_front_drive.configFactoryDefault();
     left_back_drive.configFactoryDefault();
-    //follow_trolley_motor.configFactoryDefault();
     main_trolley_motor.configFactoryDefault();
 
     /* set up followers */
     right_back_drive.follow(right_front_drive);
     left_back_drive.follow(left_front_drive);
-    //follow_trolley_motor.follow(main_trolley_motor);
 
     /* flip values so robot moves forwardard when stick-forwardard/LEDs-green */
     right_front_drive.setInverted(true); // !< Update this
@@ -126,9 +123,10 @@ public class Robot extends TimedRobot {
     robot.setRightSideInverted(false);
 
     /* Set Default Solenoid Positions */
-    intake_arm.set(intake_arm_value);
-    trolley_lift.set(trolley_lift_value);
     ball_ramp.set(ball_ramp_value);
+    trolley_lift.set(trolley_lift_value);
+    intake_arm.set(intake_arm_value);
+    robot_lift.set(robot_lift_value);
   }
 
   /**
@@ -204,21 +202,8 @@ public class Robot extends TimedRobot {
       bottom_motor.set(-0.75);
     }
 
-    /* Intake Balls - Button 3 (X) */
+    /* Extend / Retract Intake Arm - Button 3 (X) */
     if (controller_0.getRawButton(3) || controller_1.getRawButton(3)) {
-      top_motor.set(-0.2);
-      bottom_motor.set(-0.4);
-    }
-
-    /* Turn-off Intake / Shoot Motors */
-    if (!controller_0.getRawButton(1) && !controller_0.getRawButton(2) && !controller_0.getRawButton(3)
-    && !controller_1.getRawButton(1) && !controller_1.getRawButton(2) && !controller_1.getRawButton(3)) {
-      top_motor.set(0);
-      bottom_motor.set(0);
-    }
-
-    /* Extend / Retract Intake Arm - Button 4 (Y) */
-    if (controller_0.getRawButton(4) || controller_1.getRawButton(4)) {
       if (intake_arm_value == Value.kForward) {
         intake_arm.set(DoubleSolenoid.Value.kReverse);
       } else {
@@ -231,7 +216,20 @@ public class Robot extends TimedRobot {
       }
     }
 
-    /* Trolley Extend, Lift, & Auto Level - Button 5 (Left Button) */
+    /* Intake Balls - Button 4 (Y) */
+    if (controller_0.getRawButton(4) || controller_1.getRawButton(4)) {
+      top_motor.set(-0.2);
+      bottom_motor.set(-0.4);
+    }
+
+    /* Turn-off Intake / Shoot Motors */
+    if (!controller_0.getRawButton(1) && !controller_0.getRawButton(2) && !controller_0.getRawButton(4)
+    && !controller_1.getRawButton(1) && !controller_1.getRawButton(2) && !controller_1.getRawButton(4)) {
+      top_motor.set(0);
+      bottom_motor.set(0);
+    }
+
+    /* Trolley Lift - Button 5 (Left Button) */
     if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) {
       if (trolley_lift_value == Value.kForward) {
         trolley_lift.set(DoubleSolenoid.Value.kReverse);
@@ -257,7 +255,20 @@ public class Robot extends TimedRobot {
         ball_ramp_value = ball_ramp.get();
       }
     }
-    /* Button 7 (Back Button) */
+
+    /* Robot Lift - Button 7 (Back Button) */
+    if (controller_0.getRawButton(7) || controller_1.getRawButton(7)) {
+      if (robot_lift_value == DoubleSolenoid.Value.kForward) {
+        robot_lift.set(DoubleSolenoid.Value.kReverse);
+      } else {
+        robot_lift.set(DoubleSolenoid.Value.kForward);
+      }
+      robot_lift_time = System.currentTimeMillis();
+    } else {
+      if (System.currentTimeMillis() - robot_lift_time > 250) {
+        robot_lift_value = robot_lift.get();
+      }
+    }
 
     /* Button 8 (Start Button) */
 
