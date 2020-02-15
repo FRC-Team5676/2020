@@ -58,10 +58,10 @@ public class Robot extends TimedRobot {
   private static long robot_lift_time;
 
   /* Drive Train Motors */
-  private static WPI_VictorSPX left_back_drive = new WPI_VictorSPX(3);
-  private static WPI_TalonSRX left_front_drive = new WPI_TalonSRX(4);
-  private static WPI_VictorSPX right_back_drive = new WPI_VictorSPX(5);
-  private static WPI_TalonSRX right_front_drive = new WPI_TalonSRX(6);
+  private static WPI_TalonSRX right_front_drive = new WPI_TalonSRX(3);
+  private static WPI_VictorSPX right_back_drive = new WPI_VictorSPX(4);
+  private static WPI_TalonSRX left_front_drive = new WPI_TalonSRX(5);
+  private static WPI_VictorSPX left_back_drive = new WPI_VictorSPX(6);
   private static DifferentialDrive robot = new DifferentialDrive(left_front_drive, right_front_drive);
   private static Faults left_faults = new Faults();
   private static Faults right_faults = new Faults();
