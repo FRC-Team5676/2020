@@ -191,20 +191,20 @@ public class Robot extends TimedRobot {
 
     /* Shoot Low - Button 1 (A) */
     if (controller_0.getRawButton(1) || controller_1.getRawButton(1)) {
-      top_motor.set(0);
-      bottom_motor.set(1.0);
+      top_motor.set(0.4);
+      bottom_motor.set(-0.4);
     }
 
     /* Shoot High - Button 2 (B) */
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
-      top_motor.set(-1.0);
-      bottom_motor.set(1.0);
+      top_motor.set(0.75);
+      bottom_motor.set(-0.75);
     }
 
     /* Intake Balls - Button 3 (X) */
     if (controller_0.getRawButton(3) || controller_1.getRawButton(3)) {
-      top_motor.set(0);
-      bottom_motor.set(-1.0);
+      top_motor.set(-0.2);
+      bottom_motor.set(-0.4);
     }
 
     /* Turn-off Intake / Shoot Motors */
