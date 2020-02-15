@@ -274,11 +274,9 @@ public class Robot extends TimedRobot {
     double trolley_up_down_left_1 = +1 * controller_1.getRawAxis(2);
     double trolley_up_down_right_1 = +1 * controller_1.getRawAxis(3);
 
-    /* Reverse Drive Robot - Axis 4 & 5 (X & Y Right Joystick) */
-    double turn_0_reverse_drive = 1 * controller_0.getRawAxis(4); /* positive is right */
-    double turn_1_reverse_drive = 1 * controller_1.getRawAxis(4); /* positive is right */
-    double forward_0_reverse_drive = 1 * controller_0.getRawAxis(5); /* positive is forwardard */
-    double forward_1_reverse_drive = 1 * controller_1.getRawAxis(5); /* positive is forwardard */
+    /* Drive Trolley - Axis 4 & 5 (X & Y Right Joystick) */
+    double trolley_drive_0 = 1 * controller_0.getRawAxis(5); /* positive is forwardard */
+    double trolley_drive_1 = 1 * controller_1.getRawAxis(5); /* positive is forwardard */
 
     /* Controller Deadband 10% */
     if (Math.abs(forward_0) < 0.10) {
@@ -287,11 +285,8 @@ public class Robot extends TimedRobot {
     if (Math.abs(turn_0) < 0.10) {
       turn_0 = 0;
     }
-    if (Math.abs(forward_0_reverse_drive) < 0.10) {
-      forward_0_reverse_drive = 0;
-    }
-    if (Math.abs(turn_0_reverse_drive) < 0.10) {
-      turn_0_reverse_drive = 0;
+    if (Math.abs(trolley_drive_0) < 0.10) {
+      trolley_drive_0 = 0;
     }
     if (Math.abs(trolley_up_down_right_0) < 0.10) {
       trolley_up_down_right_0 = 0;
@@ -305,11 +300,9 @@ public class Robot extends TimedRobot {
     if (Math.abs(turn_1) < 0.10) {
       turn_1 = 0;
     }
-    if (Math.abs(forward_1_reverse_drive) < 0.10) {
-      forward_1_reverse_drive = 0;
+    if (Math.abs(trolley_drive_1) < 0.10) {
+      trolley_drive_1 = 0;
     }
-    if (Math.abs(turn_1_reverse_drive) < 0.10) {
-      turn_1_reverse_drive = 0;
     }
     if (Math.abs(trolley_up_down_right_1) < 0.10) {
       trolley_up_down_right_1 = 0;
@@ -337,14 +330,14 @@ public class Robot extends TimedRobot {
     if (forward_0 != 0 || turn_0 != 0) {
       robot.arcadeDrive(forward_0, turn_0);
     }
-    if (forward_0_reverse_drive != 0 || turn_0_reverse_drive != 0) {
-      robot.arcadeDrive(forward_0_reverse_drive, turn_0_reverse_drive);
-    }
     if (forward_1 != 0 || turn_1 != 0) {
       robot.arcadeDrive(forward_1, turn_1);
     }
-    if (forward_1_reverse_drive != 0 || turn_1_reverse_drive != 0) {
-      robot.arcadeDrive(forward_1_reverse_drive, turn_1_reverse_drive);
+    if (trolley_drive_0 != 0) {
+      main_trolley_motor(trolley_drive_0);
+    }
+    if (trolley_drive_1 != 0) {
+      main_trolley_motor(trolley_drive_1);
     }
   }
 
