@@ -35,10 +35,10 @@ import edu.wpi.first.wpilibj.AnalogInput;
  */
 public class Robot extends TimedRobot {
   /* Default Robot */
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
+  private final String kDefaultAuto = "Default";
+  private final String kCustomAuto = "My Auto";
   private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /* Solenoid */
   private DoubleSolenoid intake_arm = new DoubleSolenoid(2, 0, 1);
@@ -71,8 +71,8 @@ public class Robot extends TimedRobot {
   private WPI_TalonSRX main_trolley_motor = new WPI_TalonSRX(8);
 
   /* Joysticks */
-  private final Joystick controller_0 = new Joystick(0);
-  private final Joystick controller_1 = new Joystick(1);
+  private Joystick controller_0 = new Joystick(0);
+  private Joystick controller_1 = new Joystick(1);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -225,9 +225,31 @@ public class Robot extends TimedRobot {
     }
 
     /* Trolley Extend, Lift, & Auto Level - Button 5 (Left Button) */
-
+    if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) {
+      if (trolley_lift_value == Value.kForward) {
+        trolley_lift.set(DoubleSolenoid.Value.kReverse);
+      } else {
+        trolley_lift.set(DoubleSolenoid.Value.kForward);
+      }
+      trolley_lift_time = System.currentTimeMillis();
+    } else {
+      if (System.currentTimeMillis() - trolley_lift_time > 250) {
+        trolley_lift_value = trolley_lift.get();
+      }
+    }
     /* Raise & Lower Ball Area - Button 6 (Right Button) */
-
+    if (controller_0.getRawButton(6) || controller_1.getRawButton(6)) {
+      if (ball_ramp_value == DoubleSolenoid.Value.kForward) {
+        ball_ramp.set(DoubleSolenoid.Value.kReverse);
+      } else {
+        ball_ramp.set(DoubleSolenoid.Value.kForward);
+      }
+      ball_ramp_time = System.currentTimeMillis();
+    } else {
+      if (System.currentTimeMillis() - ball_ramp_time > 250) {
+        ball_ramp_value = ball_ramp.get();
+      }
+    }
     /* Button 7 (Back Button) */
 
     /* Button 8 (Start Button) */
@@ -293,8 +315,8 @@ public class Robot extends TimedRobot {
     }
 
     /* Trolley Up & Down */
-    if (trolley_up_down_left_0 + trolley_up_down_right_0 > 1.5 ||
-        trolley_up_down_left_1 + trolley_up_down_right_1 > 1.5) {
+    if (trolley_up_down_left_0 + trolley_up_down_right_0 > 1.5
+        || trolley_up_down_left_1 + trolley_up_down_right_1 > 1.5) {
       if (trolley_lift_value == Value.kForward) {
         trolley_lift.set(DoubleSolenoid.Value.kReverse);
       } else {
