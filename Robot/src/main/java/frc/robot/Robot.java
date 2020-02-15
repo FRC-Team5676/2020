@@ -208,7 +208,8 @@ public class Robot extends TimedRobot {
     }
 
     /* Turn-off Intake / Shoot Motors */
-    if (!controller_0.getRawButton(1) && !controller_0.getRawButton(2) && !controller_0.getRawButton(3)) {
+    if (!controller_0.getRawButton(1) && !controller_0.getRawButton(2) && !controller_0.getRawButton(3)
+    && !controller_1.getRawButton(1) && !controller_1.getRawButton(2) && !controller_1.getRawButton(3)) {
       top_motor.set(0);
       bottom_motor.set(0);
     }
