@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /* needed for 2020 robot */
+import edu.wpi.first.cameraserver.CameraServer;
 import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -90,6 +91,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    CameraServer.getInstance().startAutomaticCapture();
 
     /* factory default all drives */
     right_front_drive.configFactoryDefault();
@@ -218,8 +220,8 @@ public class Robot extends TimedRobot {
 
     /* Intake Balls - Button 4 (Y) */
     if (controller_0.getRawButton(4) || controller_1.getRawButton(4)) {
-      top_motor.set(-0.2);
-      bottom_motor.set(-0.4);
+      top_motor.set(-0.4);
+      bottom_motor.set(-0.5);
     }
 
     /* Turn-off Intake / Shoot Motors */
@@ -277,8 +279,8 @@ public class Robot extends TimedRobot {
     /* Button 10 (Right Joystick Press Down) */
 
     /* Drive Robot - Axis 0 & 1 (X & Y Left Joystick) */
-    double turn_0 = -1 * controller_0.getRawAxis(0); /* negative is right */
-    double turn_1 = -1 * controller_1.getRawAxis(0); /* negative is right */
+    double turn_0 = 1 * controller_0.getRawAxis(0); /* negative is right */
+    double turn_1 = 1 * controller_1.getRawAxis(0); /* negative is right */
     double forward_0 = -1 * controller_0.getRawAxis(1); /* negative is forwardard */
     double forward_1 = -1 * controller_1.getRawAxis(1); /* negative is forwardard */
 
