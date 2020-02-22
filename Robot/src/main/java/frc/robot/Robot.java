@@ -231,8 +231,8 @@ public class Robot extends TimedRobot {
       bottom_motor.set(0);
     }
 
-    /* Trolley Lift - Button 5 (Left Button) */
-    if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) {
+    /* Robot Lift - Button 5 (Left Button) */
+    /*if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) {
       if (trolley_lift_value == Value.kForward) {
         trolley_lift.set(DoubleSolenoid.Value.kReverse);
       } else {
@@ -243,7 +243,20 @@ public class Robot extends TimedRobot {
       if (System.currentTimeMillis() - trolley_lift_time > 250) {
         trolley_lift_value = trolley_lift.get();
       }
+    } */
+    if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) {
+      if (robot_lift_value == DoubleSolenoid.Value.kForward) {
+        robot_lift.set(DoubleSolenoid.Value.kReverse);
+      } else {
+        robot_lift.set(DoubleSolenoid.Value.kForward);
+      }
+      robot_lift_time = System.currentTimeMillis();
+    } else {
+      if (System.currentTimeMillis() - robot_lift_time > 250) {
+        robot_lift_value = robot_lift.get();
+      }
     }
+
     /* Raise & Lower Ball Area - Button 6 (Right Button) */
     if (controller_0.getRawButton(6) || controller_1.getRawButton(6)) {
       if (ball_ramp_value == DoubleSolenoid.Value.kForward) {
@@ -258,19 +271,7 @@ public class Robot extends TimedRobot {
       }
     }
 
-    /* Robot Lift - Button 7 (Back Button) */
-    if (controller_0.getRawButton(7) || controller_1.getRawButton(7)) {
-      if (robot_lift_value == DoubleSolenoid.Value.kForward) {
-        robot_lift.set(DoubleSolenoid.Value.kReverse);
-      } else {
-        robot_lift.set(DoubleSolenoid.Value.kForward);
-      }
-      robot_lift_time = System.currentTimeMillis();
-    } else {
-      if (System.currentTimeMillis() - robot_lift_time > 250) {
-        robot_lift_value = robot_lift.get();
-      }
-    }
+    /* Button 7 (Back Button) */
 
     /* Button 8 (Start Button) */
 
