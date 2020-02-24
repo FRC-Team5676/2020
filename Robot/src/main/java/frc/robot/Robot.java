@@ -91,8 +91,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
-    Cameraserver.getInstance().startAutomaticCapture(2);
+    
 
     /* factory default all drives */
     right_front_drive.configFactoryDefault();
