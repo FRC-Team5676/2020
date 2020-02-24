@@ -91,7 +91,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.getInstance().startAutomaticCapture(1);
+    Cameraserver.getInstance().startAutomaticCapture(2);
 
     /* factory default all drives */
     right_front_drive.configFactoryDefault();
@@ -202,7 +203,7 @@ public class Robot extends TimedRobot {
     /* Shoot High - Button 2 (B) */
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
       top_motor.set(0.75);
-      bottom_motor.set(-0.75);
+      bottom_motor.set(-0.85);
       ball_ramp.set(DoubleSolenoid.Value.kForward);
     }
 
