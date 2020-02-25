@@ -194,10 +194,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    /* Shoot Low - Button 1 (A) */
+    /* Unjam Balls - Button 1 (A) */
     if (controller_0.getRawButton(1) || controller_1.getRawButton(1)) {
-      top_motor.set(0.4);
-      bottom_motor.set(-0.4);
+     /* top_motor.set(-0.4); */
+      bottom_motor.set(0.4);
       ball_ramp.set(DoubleSolenoid.Value.kForward);
     }
 
@@ -224,7 +224,7 @@ public class Robot extends TimedRobot {
 
     /* Intake Balls - Button 4 (Y) */
     if (controller_0.getRawButton(4) || controller_1.getRawButton(4)) {
-      top_motor.set(-0.4);
+      top_motor.set(-0.5);
       bottom_motor.set(-0.5);
       ball_ramp.set(DoubleSolenoid.Value.kReverse);
     }
