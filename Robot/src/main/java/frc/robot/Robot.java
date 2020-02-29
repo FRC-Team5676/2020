@@ -38,7 +38,6 @@ public class Robot extends TimedRobot {
   private final String kDefaultAuto = "Default";
   private final String kCustomAuto = "My Auto";
   private static String m_autoSelected;
-  private static SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /* Solenoid */
   private static DoubleSolenoid color_wheel = new DoubleSolenoid(1, 0, 1);
@@ -88,9 +87,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     /* Chooser Setup */
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
     
@@ -169,15 +165,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-    case kCustomAuto:
-      // Put custom auto code here
-      break;
-    case kDefaultAuto:
-    default:
-      // Put default auto code here
-      break;
-    }
+
   }
 
   /**
@@ -196,15 +184,15 @@ public class Robot extends TimedRobot {
 
     /* Unjam Balls - Button 1 (A) */
     if (controller_0.getRawButton(1) || controller_1.getRawButton(1)) {
-     /* top_motor.set(-0.4); */
+      top_motor.set(-0.4);
       bottom_motor.set(0.4);
      /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
     /* Shoot High - Button 2 (B) */
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
-      top_motor.set(0.75);
-      bottom_motor.set(-0.75);
+      top_motor.set(0.90);
+      bottom_motor.set(-0.60);
      /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
