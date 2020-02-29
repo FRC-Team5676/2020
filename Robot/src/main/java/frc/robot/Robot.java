@@ -80,6 +80,14 @@ public class Robot extends TimedRobot {
   private static Joystick controller_0 = new Joystick(0);
   private static Joystick controller_1 = new Joystick(1);
 
+  /* Auton Variables */
+  private static long x_time;
+  private static boolean x_time_done;
+  private static long y_time;
+  private static boolean y_time_done;
+  private static long backup_time;
+  private static boolean backup_time_done;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -89,7 +97,6 @@ public class Robot extends TimedRobot {
     /* Chooser Setup */
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
-    
 
     /* factory default all drives */
     right_front_drive.configFactoryDefault();
@@ -155,9 +162,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    x_time = System.currentTimeMillis();
+    y_time = Long.MAX_VALUE;
+    backup_time = Long.MAX_VALUE;
   }
 
   /**
@@ -166,6 +174,39 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
+    // Extend Arm
+    intake_arm.set(DoubleSolenoid.Value.kForward);
+
+    // Delay X Seconds
+    if (System.currentTimeMillis() - x_time > 500 && !x_time_done) {
+      // Start Shoot Motors
+      top_motor.set(0.85);
+      bottom_motor.set(-0.75);
+      x_time_done = true;
+    }
+
+    // Raise Ball Area
+    if (x_time_done && y_time == Long.MAX_VALUE) {
+      ball_ramp.set(DoubleSolenoid.Value.kForward);
+      y_time = System.currentTimeMillis();
+    }
+
+    // Delay Y Seconds
+    if (System.currentTimeMillis() - y_time > 2000) {
+      y_time_done = true;
+    }
+
+    // Backup 1 Second
+    if (x_time_done && y_time_done && !backup_time_done) {
+      top_motor.set(0);
+      bottom_motor.set(0);
+      robot.arcadeDrive(-0.5, 0);
+      backup_time = System.currentTimeMillis();
+      if (System.currentTimeMillis() - backup_time > 250) {
+        robot.arcadeDrive(0, 0);
+        backup_time_done = true;
+      }
+    }
   }
 
   /**
@@ -186,14 +227,14 @@ public class Robot extends TimedRobot {
     if (controller_0.getRawButton(1) || controller_1.getRawButton(1)) {
       top_motor.set(-0.4);
       bottom_motor.set(0.4);
-     /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
+      /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
     /* Shoot High - Button 2 (B) */
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
       top_motor.set(0.90);
       bottom_motor.set(-0.60);
-     /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
+      /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
     /* Extend / Retract Intake Arm - Button 3 (X) */
@@ -219,30 +260,26 @@ public class Robot extends TimedRobot {
 
     /* Turn-off Intake / Shoot Motors */
     if (!controller_0.getRawButton(1) && !controller_0.getRawButton(2) && !controller_0.getRawButton(4)
-    && !controller_1.getRawButton(1) && !controller_1.getRawButton(2) && !controller_1.getRawButton(4)) {
+        && !controller_1.getRawButton(1) && !controller_1.getRawButton(2) && !controller_1.getRawButton(4)) {
       top_motor.set(0);
       bottom_motor.set(0);
     }
 
     /* Robot Lift - Button 5 (Left Button) */
-    /*if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) {
-      if (trolley_lift_value == Value.kForward) {
-        trolley_lift.set(DoubleSolenoid.Value.kReverse);
-      } else {
-        trolley_lift.set(DoubleSolenoid.Value.kForward);
-      }
-      trolley_lift_time = System.currentTimeMillis();
-    } else {
-      if (System.currentTimeMillis() - trolley_lift_time > 250) {
-        trolley_lift_value = trolley_lift.get();
-      }
-    } */
+    /*
+     * if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) { if
+     * (trolley_lift_value == Value.kForward) {
+     * trolley_lift.set(DoubleSolenoid.Value.kReverse); } else {
+     * trolley_lift.set(DoubleSolenoid.Value.kForward); } trolley_lift_time =
+     * System.currentTimeMillis(); } else { if (System.currentTimeMillis() -
+     * trolley_lift_time > 250) { trolley_lift_value = trolley_lift.get(); } }
+     */
     if (controller_0.getRawButton(5) || controller_1.getRawButton(5)) {
       if (robot_lift_value == DoubleSolenoid.Value.kForward) {
         robot_lift.set(DoubleSolenoid.Value.kReverse);
       } else {
-        if( trolley_lift_value == Value.kForward ){
-           robot_lift.set(DoubleSolenoid.Value.kForward);
+        if (trolley_lift_value == Value.kForward) {
+          robot_lift.set(DoubleSolenoid.Value.kForward);
         }
       }
       robot_lift_time = System.currentTimeMillis();
@@ -326,7 +363,7 @@ public class Robot extends TimedRobot {
     if (trolley_up_down_left_0 + trolley_up_down_right_0 > 1.5
         || trolley_up_down_left_1 + trolley_up_down_right_1 > 1.5) {
       if (trolley_lift_value == Value.kForward && robot_lift_value == Value.kReverse) {
-          trolley_lift.set(DoubleSolenoid.Value.kReverse);
+        trolley_lift.set(DoubleSolenoid.Value.kReverse);
       } else {
         trolley_lift.set(DoubleSolenoid.Value.kForward);
       }
@@ -348,10 +385,10 @@ public class Robot extends TimedRobot {
     /* Drive Trolley */
     if (trolley_drive_0 != 0) {
       main_trolley_motor.set(trolley_drive_0);
-    } 
+    }
     if (trolley_drive_1 != 0) {
       main_trolley_motor.set(trolley_drive_1);
-    } 
+    }
     if (trolley_drive_0 == 0 && trolley_drive_1 == 0) {
       main_trolley_motor.set(0);
     }
