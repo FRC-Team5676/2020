@@ -85,6 +85,8 @@ public class Robot extends TimedRobot {
   private static boolean x_time_done;
   private static long y_time;
   private static boolean y_time_done;
+  private static long z_time;
+  private static boolean z_time_done;
   private static long backup_time;
   private static boolean backup_time_done;
 
@@ -165,6 +167,7 @@ public class Robot extends TimedRobot {
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     x_time = System.currentTimeMillis();
     y_time = Long.MAX_VALUE;
+    z_time = Long.MAX_VALUE;
     backup_time = Long.MAX_VALUE;
   }
 
@@ -177,34 +180,33 @@ public class Robot extends TimedRobot {
     // Extend Arm
     intake_arm.set(DoubleSolenoid.Value.kForward);
 
-    // Delay X Seconds
-    if (System.currentTimeMillis() - x_time > 500 && !x_time_done) {
-      // Start Shoot Motors
+    // Start Shoot Motors
+    if (System.currentTimeMillis() - x_time > 1000 && !x_time_done) {
       top_motor.set(0.85);
       bottom_motor.set(-0.80);
       x_time_done = true;
-    }
-
-    // Raise Ball Area
-    if (x_time_done && y_time == Long.MAX_VALUE) {
-      ball_ramp.set(DoubleSolenoid.Value.kForward);
       y_time = System.currentTimeMillis();
     }
 
-    // Delay Y Seconds
-    if (System.currentTimeMillis() - y_time > 2000) {
+    // Raise Ball Area
+    if (System.currentTimeMillis() - y_time > 1000 && !y_time_done) {
+      ball_ramp.set(DoubleSolenoid.Value.kForward);
       y_time_done = true;
+      z_time = System.currentTimeMillis();
+    }
+
+    // Delay Z Seconds ==> Balls Shoot
+    if (System.currentTimeMillis() - z_time > 4000 && !z_time_done) {
+      z_time_done = true;
+      backup_time = System.currentTimeMillis();
     }
 
     // Backup 1 Second
-    if (x_time_done && y_time_done && !backup_time_done) {
+    if (x_time_done && y_time_done && z_time_done && !backup_time_done) {
       top_motor.set(0);
       bottom_motor.set(0);
-      robot.arcadeDrive(-0.5, 0);
-      if (backup_time == Long.MAX_VALUE ){
-        backup_time = System.currentTimeMillis();
-      }
-      if (System.currentTimeMillis() - backup_time > 500) {
+      robot.arcadeDrive(-0.5, 0.5);
+      if (System.currentTimeMillis() - backup_time > 750) {
         robot.arcadeDrive(0, 0);
         backup_time_done = true;
       }
