@@ -181,7 +181,7 @@ public class Robot extends TimedRobot {
     if (System.currentTimeMillis() - x_time > 500 && !x_time_done) {
       // Start Shoot Motors
       top_motor.set(0.85);
-      bottom_motor.set(-0.75);
+      bottom_motor.set(-0.80);
       x_time_done = true;
     }
 
@@ -201,8 +201,10 @@ public class Robot extends TimedRobot {
       top_motor.set(0);
       bottom_motor.set(0);
       robot.arcadeDrive(-0.5, 0);
-      backup_time = System.currentTimeMillis();
-      if (System.currentTimeMillis() - backup_time > 250) {
+      if (backup_time == Long.MAX_VALUE ){
+        backup_time = System.currentTimeMillis();
+      }
+      if (System.currentTimeMillis() - backup_time > 500) {
         robot.arcadeDrive(0, 0);
         backup_time_done = true;
       }
