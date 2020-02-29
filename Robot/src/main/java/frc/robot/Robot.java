@@ -198,13 +198,13 @@ public class Robot extends TimedRobot {
     if (controller_0.getRawButton(1) || controller_1.getRawButton(1)) {
      /* top_motor.set(-0.4); */
       bottom_motor.set(0.4);
-      ball_ramp.set(DoubleSolenoid.Value.kForward);
+     /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
     /* Shoot High - Button 2 (B) */
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
       top_motor.set(0.75);
-      bottom_motor.set(-0.85);
+      bottom_motor.set(-0.80);
       ball_ramp.set(DoubleSolenoid.Value.kForward);
     }
 
@@ -224,7 +224,7 @@ public class Robot extends TimedRobot {
 
     /* Intake Balls - Button 4 (Y) */
     if (controller_0.getRawButton(4) || controller_1.getRawButton(4)) {
-      top_motor.set(-0.5);
+      top_motor.set(-0.4);
       bottom_motor.set(-0.5);
       ball_ramp.set(DoubleSolenoid.Value.kReverse);
     }
@@ -335,8 +335,8 @@ public class Robot extends TimedRobot {
     /* Trolley Up & Down */
     if (trolley_up_down_left_0 + trolley_up_down_right_0 > 1.5
         || trolley_up_down_left_1 + trolley_up_down_right_1 > 1.5) {
-      if (trolley_lift_value == Value.kForward) {
-        trolley_lift.set(DoubleSolenoid.Value.kReverse);
+      if (trolley_lift_value == Value.kForward && robot_lift_value == Value.kReverse) {
+          trolley_lift.set(DoubleSolenoid.Value.kReverse);
       } else {
         trolley_lift.set(DoubleSolenoid.Value.kForward);
       }
