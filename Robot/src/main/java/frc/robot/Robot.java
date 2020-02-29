@@ -205,7 +205,7 @@ public class Robot extends TimedRobot {
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
       top_motor.set(0.75);
       bottom_motor.set(-0.70);
-      ball_ramp.set(DoubleSolenoid.Value.kForward);
+     /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
     /* Extend / Retract Intake Arm - Button 3 (X) */
