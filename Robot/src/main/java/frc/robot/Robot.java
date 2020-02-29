@@ -253,7 +253,9 @@ public class Robot extends TimedRobot {
       if (robot_lift_value == DoubleSolenoid.Value.kForward) {
         robot_lift.set(DoubleSolenoid.Value.kReverse);
       } else {
-        robot_lift.set(DoubleSolenoid.Value.kForward);
+        if( trolley_lift_value == Value.kForward ){
+           robot_lift.set(DoubleSolenoid.Value.kForward);
+        }
       }
       robot_lift_time = System.currentTimeMillis();
     } else {
