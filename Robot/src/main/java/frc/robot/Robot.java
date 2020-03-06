@@ -311,8 +311,8 @@ public class Robot extends TimedRobot {
 
     /* Button 8 (Start Button) */
     if (controller_0.getRawButton(8) || controller_1.getRawButton(8)) {
-      top_motor.set(0.40);
-      bottom_motor.set(-0.40);
+      top_motor.set(0.60);
+      bottom_motor.set(-0.60);
       /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
     /* Button 9 (Left Joystick Press Down) */
