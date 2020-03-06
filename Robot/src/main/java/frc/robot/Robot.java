@@ -205,8 +205,8 @@ public class Robot extends TimedRobot {
     if (x_time_done && y_time_done && z_time_done && !backup_time_done) {
       top_motor.set(0);
       bottom_motor.set(0);
-      robot.arcadeDrive(-0.5, 0.5);
-      if (System.currentTimeMillis() - backup_time > 750) {
+      robot.arcadeDrive(-0.6, 0.7);
+      if (System.currentTimeMillis() - backup_time > 2000) {
         robot.arcadeDrive(0, 0);
         backup_time_done = true;
       }
@@ -234,7 +234,7 @@ public class Robot extends TimedRobot {
       /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
-    /* Shoot High - Button 2 (B) */
+    /* Shoot - Button 2 (B) */
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
       top_motor.set(0.90);
       bottom_motor.set(-0.60);
@@ -310,7 +310,11 @@ public class Robot extends TimedRobot {
     /* Button 7 (Back Button) */
 
     /* Button 8 (Start Button) */
-
+    if (controller_0.getRawButton(8) || controller_1.getRawButton(8)) {
+      top_motor.set(0.40);
+      bottom_motor.set(-0.40);
+      /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
+    }
     /* Button 9 (Left Joystick Press Down) */
 
     /* Button 10 (Right Joystick Press Down) */
