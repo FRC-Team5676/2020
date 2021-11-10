@@ -227,14 +227,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    /* Unjam Balls - Button 1 (A) */
+    /* Unjam Balls - Button 1 (A) */ 
     if (controller_0.getRawButton(1) || controller_1.getRawButton(1)) {
       top_motor.set(-0.4);
       bottom_motor.set(0.4);
       /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
     }
 
-    /* Shoot - Button 2 (B) */
+    /* Shoot - Button 2 (B) */ 
     if (controller_0.getRawButton(2) || controller_1.getRawButton(2)) {
       top_motor.set(0.90);
       bottom_motor.set(-0.60);
@@ -258,7 +258,7 @@ public class Robot extends TimedRobot {
     /* Intake Balls - Button 4 (Y) */
     if (controller_0.getRawButton(4) || controller_1.getRawButton(4)) {
       top_motor.set(-0.4);
-      bottom_motor.set(-0.5);
+      bottom_motor.set(-0.5); 
       ball_ramp.set(DoubleSolenoid.Value.kReverse);
     }
 
@@ -285,7 +285,7 @@ public class Robot extends TimedRobot {
         if (trolley_lift_value == Value.kForward) {
           robot_lift.set(DoubleSolenoid.Value.kForward);
         }
-      }
+      }  
       robot_lift_time = System.currentTimeMillis();
     } else {
       if (System.currentTimeMillis() - robot_lift_time > 250) {
@@ -309,21 +309,20 @@ public class Robot extends TimedRobot {
 
     /* Button 7 (Back Button) */
 
-    /* Button 8 (Start Button) */
+    /*Shoot Low - Button 8 (Start Button) */
     if (controller_0.getRawButton(8) || controller_1.getRawButton(8)) {
-      top_motor.set(0.60);
-      bottom_motor.set(-0.60);
-      /* ball_ramp.set(DoubleSolenoid.Value.kForward); */
+      top_motor.set(0.50);
+      bottom_motor.set(-0.50);
     }
     /* Button 9 (Left Joystick Press Down) */
 
     /* Button 10 (Right Joystick Press Down) */
 
     /* Drive Robot - Axis 0 & 1 (X & Y Left Joystick) */
-    double turn_0 = 1 * controller_0.getRawAxis(0); /* negative is right */
-    double turn_1 = 1 * controller_1.getRawAxis(0); /* negative is right */
-    double forward_0 = -1 * controller_0.getRawAxis(1); /* negative is forwardard */
-    double forward_1 = -1 * controller_1.getRawAxis(1); /* negative is forwardard */
+    double turn_0 = 0.50 * controller_0.getRawAxis(0); /* negative is right */
+    double turn_1 = 0.50 * controller_1.getRawAxis(0); /* negative is right */
+    double forward_0 = -0.50 * controller_0.getRawAxis(1); /* negative is forwardard */
+    double forward_1 = -0.50 * controller_1.getRawAxis(1); /* negative is forwardard */
 
     /* Trolley Up & Down - Axis 2 & 3 (Left & Right Trigger) */
     double trolley_up_down_left_0 = +1 * controller_0.getRawAxis(2);
