@@ -319,10 +319,10 @@ public class Robot extends TimedRobot {
     /* Button 10 (Right Joystick Press Down) */
 
     /* Drive Robot - Axis 0 & 1 (X & Y Left Joystick) */
-    double turn_0 = 0.50 * controller_0.getRawAxis(0); /* negative is right */
-    double turn_1 = 0.50 * controller_1.getRawAxis(0); /* negative is right */
-    double forward_0 = -0.50 * controller_0.getRawAxis(1); /* negative is forwardard */
-    double forward_1 = -0.50 * controller_1.getRawAxis(1); /* negative is forwardard */
+    double turn_0 = 1 * controller_0.getRawAxis(0); /* negative is right */
+    double turn_1 = 1 * controller_1.getRawAxis(0); /* negative is right */
+    double forward_0 = -1 * controller_0.getRawAxis(1); /* negative is forwardard */
+    double forward_1 = -1 * controller_1.getRawAxis(1); /* negative is forwardard */
 
     /* Trolley Up & Down - Axis 2 & 3 (Left & Right Trigger) */
     double trolley_up_down_left_0 = +1 * controller_0.getRawAxis(2);
